@@ -10,4 +10,6 @@
 
 <div stily="display: inline_block"><br/>
   <img align="center" alt="c" src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" />
-</div>
+</div><br/>
+
+Sou um entusiasta de Engenharia Eletrônica apaixonado por tecnologia, constantemente em busca de novos conhecimentos e habilidades.
