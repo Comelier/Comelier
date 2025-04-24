@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <math.h> // Para fabs() - valor absoluto
+
+int main() {
+    double pi_aproximado = 0.0;
+    int termos = 0;
+    int sinal = 1; // 1 para positivo, -1 para negativo
+    double denominador = 1.0;
+    double erro_3_14 = 1.0;
+    double erro_3_141 = 1.0;
+    double erro_3_1415 = 1.0;
+    double erro_3_14159 = 1.0;
+    int termos_3_14 = 0;
+    int termos_3_141 = 0;
+    int termos_3_1415 = 0;
+    int termos_3_14159 = 0;
+    double pi_real = M_PI; // Valor real de PI da biblioteca math.h (se disponível)
+
+    printf("-------------------------------------------------\n");
+    printf("| Termos | PI Aproximado         | Erro Absoluto |\n");
+    printf("-------------------------------------------------\n");
+
+    while (fabs(erro_3_14159) > 1e-6) { // Continua até uma precisão razoável
+        termos++;
+        pi_aproximado += sinal * (4.0 / denominador);
+        sinal *= -1;
+        denominador += 2;
+
+        double erro_atual = fabs(pi_real - pi_aproximado);
+        printf("| %4d   | %18.10f | %13.10f |\n", termos, pi_aproximado, erro_atual);
+
+        if (termos_3_14 == 0 && fabs(pi_aproximado - 3.14) < 1e-2) {
+            termos_3_14 = termos;
+            erro_3_14 = erro_atual;
+        }
+        if (termos_3_141 == 0 && fabs(pi_aproximado - 3.141) < 1e-3) {
+            termos_3_141 = termos;
+            erro_3_141 = erro_atual;
+        }
+        if (termos_3_1415 == 0 && fabs(pi_aproximado - 3.1415) < 1e-4) {
+            termos_3_1415 = termos;
+            erro_3_1415 = erro_atual;
+        }
+        if (termos_3_14159 == 0 && fabs(pi_aproximado - 3.14159) < 1e-5) {
+            termos_3_14159 = termos;
+            erro_3_14159 = erro_atual;
+        }
+
+        if (termos > 100000) { // Adiciona uma segurança para evitar loops infinitos
+            printf("Atingido um grande número de termos. A convergência pode ser lenta.\n");
+            break;
+        }
+    }
+
+    printf("-------------------------------------------------\n");
+
+    printf("\nNúmero de termos necessários para aproximar:\n");
+    if (termos_3_14 > 0) {
+        printf("3.14: %d termos (Erro: %.10f)\n", termos_3_14, erro_3_14);
+    } else {
+        printf("3.14: Não alcançado com o limite de termos.\n");
+    }
+
+    if (termos_3_141 > 0) {
+        printf("3.141: %d termos (Erro: %.10f)\n", termos_3_141, erro_3_141);
+    } else {
+        printf("3.141: Não alcançado com o limite de termos.\n");
+    }
+
+    if (termos_3_1415 > 0) {
+        printf("3.1415: %d termos (Erro: %.10f)\n", termos_3_1415, erro_3_1415);
+    } else {
+        printf("3.1415: Não alcançado com o limite de termos.\n");
+    }
+
+    if (termos_3_14159 > 0) {
+        printf("3.14159: %d termos (Erro: %.10f)\n", termos_3_14159, erro_3_14159);
+    } else {
+        printf("3.14159: Não alcançado com o limite de termos.\n");
+    }
+
+    return 0;
+}
